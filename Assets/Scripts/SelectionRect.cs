@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UnitSelectionHandler : MonoBehaviour
+public class SelectionRect : MonoBehaviour
 {
     [SerializeField] GameObject selectionBoxContainerGo;
     [SerializeField] RectTransform selectionBox;
@@ -25,16 +25,13 @@ public class UnitSelectionHandler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("GetMouseButtonDown.");
+            selectedUnits.Clear();
             startPos = Input.mousePosition;
-            Debug.Log($"startPos = [{startPos}]");
             selectionBox.gameObject.SetActive(true);
         }
         else if (Input.GetMouseButton(0))
         {
-            Debug.Log("GetMouseButton.");
             Vector2 currentPos = Input.mousePosition;
-            Debug.Log($"currentPos = [{currentPos}]");
 
             Vector2 boxStart = new(
                 Mathf.Min(startPos.x, currentPos.x),
@@ -46,16 +43,12 @@ public class UnitSelectionHandler : MonoBehaviour
             selectionBox.anchoredPosition = boxStart;
             selectionBox.sizeDelta = boxSize;
 
-            Debug.Log($"boxStart = [{boxStart}], boxSize = [{boxSize}]");
-
             var corners = new Vector3[4];
             selectionBox.GetWorldCorners(corners);
             var screenCorners = corners.Select(c => c).ToArray();
-            Debug.Log($"screenCorners = [{string.Join(", ", screenCorners.Select(x => $"[{x}]"))}]");
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("GetMouseButtonUp.");
             selectionBox.gameObject.SetActive(false);
             SelectUnitsInBox();
         }
@@ -63,12 +56,16 @@ public class UnitSelectionHandler : MonoBehaviour
 
     void SelectUnitsInBox()
     {
-        selectedUnits.Clear();
-        foreach (var unit in FindObjectsOfType<UnitMovement>())
+        foreach (var unit in FindObjectsByType<UnitMovement>(FindObjectsSortMode.None))
         {
+            var unitSelection = unit.GetComponent<UnitSelection>();
+            unitSelection.SetSelected(false);
             Vector2 screenPos = Camera.main.WorldToScreenPoint(unit.transform.position);
             if (RectTransformUtility.RectangleContainsScreenPoint(selectionBox, screenPos))
+            {
+                unitSelection.SetSelected(true);
                 selectedUnits.Add(unit);
+            }
         }
     }
 }
