@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class RTSCameraController : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 10f;
