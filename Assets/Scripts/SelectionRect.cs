@@ -52,6 +52,8 @@ public class SelectionRect : MonoBehaviour
             selectionBox.gameObject.SetActive(false);
             SelectUnitsInBox();
         }
+
+        HandleRightClick();
     }
 
     void SelectUnitsInBox()
