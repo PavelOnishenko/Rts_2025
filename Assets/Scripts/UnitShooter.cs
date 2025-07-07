@@ -35,7 +35,7 @@ public class UnitShooter : MonoBehaviour
         foreach (var enemy in FindObjectsByType<UnitHealth>(FindObjectsSortMode.None))
         {
             if (enemy.gameObject == gameObject) continue; // skip self
-            float dist = Vector3.Distance(transform.position, enemy.transform.position);
+            var dist = Vector3.Distance(transform.position, enemy.transform.position);
             if (dist < attackRange && dist < minDist)
             {
                 minDist = dist;
