@@ -179,17 +179,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3276829836152845914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f47ec2ce6d773043aa31dbc7d4410e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8393daf41315bec49ac0031ff047a63d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  avoidanceStrength: 50
-  obstacleRayLength: 5
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 64
-  initialCooldown: 100
-  turnSpeed: 720
+  maxHealth: 3
 --- !u!114 &4888883761716292069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,9 +192,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3276829836152845914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d28137a69763fa409aa5662ae6fddf9, type: 3}
+  m_Script: {fileID: 11500000, guid: eadd1cdda80d1584a968faf0f6130961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 6
+  avoidanceStrength: 10
+  obstacleRayLength: 4
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  initialCooldown: 100
+  turnSpeed: 720
 --- !u!114 &926380023849106896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,14 +210,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3276829836152845914}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fa48c1b0e5f6ae43896ef2d4f7a766b, type: 3}
+  m_Script: {fileID: 11500000, guid: f945f7aac7ae8b145b577c4e4d628685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6040829855104675244, guid: 7115686e6356d4f4c824b777f542cdf1, type: 3}
-  attackRange: 1
-  shootCooldown: 0.5
 --- !u!114 &734070666025328768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +224,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3276829836152845914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea11dcafc874cea48b0f2426c252c494, type: 3}
+  m_Script: {fileID: 11500000, guid: b0420e762bf85d44a8b38e85be7e1c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  projectilePrefab: {fileID: 6040829855104675244, guid: 7115686e6356d4f4c824b777f542cdf1, type: 3}
+  attackRange: 5
+  shootCooldown: 1

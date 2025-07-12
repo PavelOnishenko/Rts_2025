@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class UnitMovement : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 3f;
-    [SerializeField] float avoidanceStrength = 1f;
-    [SerializeField] float obstacleRayLength = 1f;
-    [SerializeField] LayerMask obstacleMask;
-    [SerializeField] float initialCooldown = 50f;
+    [SerializeField] float moveSpeed = 6f;
+    [SerializeField] float avoidanceStrength = 10f;
+    [SerializeField] float obstacleRayLength = 4f;
+    [SerializeField] LayerMask obstacleMask = 6;
+    [SerializeField] float initialCooldown = 100f;
     [SerializeField] float turnSpeed = 720f; // degrees per second
 
     float cooldown = 0f;

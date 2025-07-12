@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SelectionRect : MonoBehaviour
 {
-    [SerializeField] GameObject selectionBoxContainerGo;
     [SerializeField] RectTransform selectionBox;
-    [SerializeField] GameObject moveOrderMarkerPrefab;   // prefab for the 0.3 s click marker
+    [SerializeField] GameObject moveOrderMarkerPrefab; 
 
     Vector2 startPos;
     readonly List<UnitMovement> selectedUnits = new();
@@ -21,7 +20,7 @@ public class SelectionRect : MonoBehaviour
         foreach (var unit in selectedUnits)
             unit.MoveTo(worldPos);
 
-        if (moveOrderMarkerPrefab)          // spawn visual feedback
+        if (moveOrderMarkerPrefab) 
             Instantiate(moveOrderMarkerPrefab, worldPos, Quaternion.identity);
     }
 
