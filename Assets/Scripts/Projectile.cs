@@ -21,10 +21,13 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out UnitHealth target))
+        if (other.gameObject.layer == 6) // obstacle, todo to enum
         {
-            target.TakeDamage(damage);
-            Destroy(gameObject);
+            if(other.TryGetComponent(out UnitHealth target))
+            {
+                target.TakeDamage(damage);
+                Destroy(gameObject);
+            }
         }
     }
 }
