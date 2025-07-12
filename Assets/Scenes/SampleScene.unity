@@ -479,6 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionBoxContainerGo: {fileID: 487906925}
   selectionBox: {fileID: 1463914719}
+  moveOrderMarkerPrefab: {fileID: 6205555572559501022, guid: 350a7b97e077e374d8ea52c6b3e8bf63, type: 3}
 --- !u!4 &996594291
 Transform:
   m_ObjectHideFlags: 0
