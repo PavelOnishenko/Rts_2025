@@ -1026,10 +1026,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1059755146682634144, guid: 9afdb7f87a7fe81448066a1a551c293a, type: 3}
-      propertyPath: avoidanceStrength
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3276829836152845914, guid: 9afdb7f87a7fe81448066a1a551c293a, type: 3}
       propertyPath: m_Name
       value: Unit

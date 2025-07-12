@@ -7,9 +7,9 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] float obstacleRayLength = 1f;
     [SerializeField] LayerMask obstacleMask;
     [SerializeField] float initialCooldown = 50f;
+    [SerializeField] float turnSpeed = 720f; // degrees per second
 
-    private float cooldown = 0;
-
+    float cooldown = 0f;
     Vector3? target;
 
     public void MoveTo(Vector3 position)
@@ -21,27 +21,29 @@ public class UnitMovement : MonoBehaviour
     {
         if (!target.HasValue) return;
 
-        //Debug.DrawLine(transform.position, target.Value, Color.green);
-        var dir = (target.Value - transform.position).normalized;
-        var nextStep = transform.position + dir * moveSpeed * Time.deltaTime;
-        var hit = Physics2D.Raycast(transform.position, dir, obstacleRayLength, obstacleMask);
+        Vector3 dir = (target.Value - transform.position).normalized;
+        Vector3 moveVec = dir;
 
-        Debug.Log($"transform.position: [{transform.position}]; dir: [{dir}]; obstacleRayLength: [{obstacleRayLength}]; " +
-            $"hit.collider is present: [{hit.collider != null}]; cooldown: [{cooldown}].");
-        Debug.DrawRay(
-            transform.position, dir * obstacleRayLength, hit.collider != null && cooldown > 0 ? Color.red : Color.blue);
-
-        if (hit.collider != null || cooldown > 0)
+        // Obstacle avoidance
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, obstacleRayLength, obstacleMask);
+        if (hit.collider != null || cooldown > 0f)
         {
-            if (hit.collider != null)
-                cooldown = initialCooldown;
-            var right = Vector3.Cross(dir, Vector3.forward); // perpendicular
-            Debug.DrawLine(transform.position, transform.position + right, Color.magenta);
-            nextStep = transform.position + (dir + right.normalized * avoidanceStrength).normalized * moveSpeed * Time.deltaTime;
-            if(cooldown > 0)
-                cooldown--;
+            if (hit.collider != null) cooldown = initialCooldown;
+            Vector3 right = Vector3.Cross(dir, Vector3.forward); // perpendicular in 2D plane
+            moveVec = (dir + right.normalized * avoidanceStrength).normalized;
+            if (cooldown > 0f) cooldown--;
         }
-        transform.position = nextStep;
+
+        // Rotate toward movement direction (sprite faces up)
+        if (moveVec.sqrMagnitude > 0.0001f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, moveVec);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
+        }
+
+        // Translate
+        transform.position += moveVec * moveSpeed * Time.deltaTime;
+
         if (Vector3.Distance(transform.position, target.Value) < 0.3f)
             target = null;
     }
