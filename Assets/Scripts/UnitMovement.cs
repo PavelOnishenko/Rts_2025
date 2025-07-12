@@ -26,12 +26,12 @@ public class UnitMovement : MonoBehaviour
         var nextStep = transform.position + dir * moveSpeed * Time.deltaTime;
         var hit = Physics2D.Raycast(transform.position, dir, obstacleRayLength, obstacleMask);
 
-        //Debug.Log($"transform.position: [{transform.position}]; dir: [{dir}]; obstacleRayLength: [{obstacleRayLength}]; " +
-        //    $"hit.collider is present: [{hit.collider == null}]; cooldown: [{cooldown}].");
+        Debug.Log($"transform.position: [{transform.position}]; dir: [{dir}]; obstacleRayLength: [{obstacleRayLength}]; " +
+            $"hit.collider is present: [{hit.collider != null}]; cooldown: [{cooldown}].");
         Debug.DrawRay(
-            transform.position, dir * obstacleRayLength, hit.collider != null && hit.collider.gameObject.name != "Unit" && cooldown == 0 ? Color.red : Color.blue);
+            transform.position, dir * obstacleRayLength, hit.collider != null && cooldown > 0 ? Color.red : Color.blue);
 
-        if (hit.collider != null && hit.collider.gameObject.name != "Unit" || cooldown > 0)
+        if (hit.collider != null || cooldown > 0)
         {
             if (hit.collider != null)
                 cooldown = initialCooldown;

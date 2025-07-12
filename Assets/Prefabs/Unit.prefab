@@ -183,12 +183,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  avoidanceStrength: 2
+  avoidanceStrength: 50
   obstacleRayLength: 5
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
-  initialCooldown: 50
+  initialCooldown: 100
 --- !u!114 &4888883761716292069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6040829855104675244, guid: 7115686e6356d4f4c824b777f542cdf1, type: 3}
   attackRange: 1
-  shootCooldown: 0.1
+  shootCooldown: 0.5
 --- !u!114 &734070666025328768
 MonoBehaviour:
   m_ObjectHideFlags: 0
