@@ -8,6 +8,7 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] LayerMask obstacleMask;
     [SerializeField] float initialCooldown = 100f;
     [SerializeField] float turnSpeed = 720f; // degrees per second
+    [SerializeField] float locationThreshold = 0.5f; 
 
     float cooldown = 0f;
     Vector3? target;
@@ -41,7 +42,7 @@ public class UnitMovement : MonoBehaviour
         }
 
         transform.position += moveVec * moveSpeed * Time.deltaTime;
-        if (Vector3.Distance(transform.position, target.Value) < 0.3f)
+        if (Vector3.Distance(transform.position, target.Value) < locationThreshold)
             target = null;
     }
 }

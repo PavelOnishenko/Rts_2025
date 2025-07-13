@@ -197,12 +197,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   avoidanceStrength: 10
-  obstacleRayLength: 2.8
+  obstacleRayLength: 1
   obstacleMask:
     serializedVersion: 2
     m_Bits: 448
   initialCooldown: 100
   turnSpeed: 720
+  locationThreshold: 1
 --- !u!114 &926380023849106896
 MonoBehaviour:
   m_ObjectHideFlags: 0
