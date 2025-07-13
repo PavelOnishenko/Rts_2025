@@ -5,12 +5,17 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 6f;
     [SerializeField] float avoidanceStrength = 10f;
     [SerializeField] float obstacleRayLength = 4f;
-    [SerializeField] LayerMask obstacleMask = 6;
+    [SerializeField] LayerMask obstacleMask;
     [SerializeField] float initialCooldown = 100f;
     [SerializeField] float turnSpeed = 720f; // degrees per second
 
     float cooldown = 0f;
     Vector3? target;
+
+    private void Awake()
+    {
+        Physics2D.queriesStartInColliders = false;
+    }
 
     public void MoveTo(Vector3 position)
     {
@@ -26,12 +31,14 @@ public class UnitMovement : MonoBehaviour
 
         // Obstacle avoidance
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, obstacleRayLength, obstacleMask);
-        if (hit.collider != null || cooldown > 0f)
+        if (hit.collider != null && hit.collider.gameObject != gameObject || cooldown > 0f)
         {
-            if (hit.collider != null) cooldown = initialCooldown;
+            if (hit.collider != null) 
+                cooldown = initialCooldown;
             Vector3 right = Vector3.Cross(dir, Vector3.forward); // perpendicular in 2D plane
             moveVec = (dir + right.normalized * avoidanceStrength).normalized;
-            if (cooldown > 0f) cooldown--;
+            if (cooldown > 0f) 
+                cooldown--;
         }
 
         // Rotate toward movement direction (sprite faces up)

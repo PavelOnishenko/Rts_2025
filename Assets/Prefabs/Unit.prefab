@@ -200,7 +200,7 @@ MonoBehaviour:
   obstacleRayLength: 4
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 448
   initialCooldown: 100
   turnSpeed: 720
 --- !u!114 &926380023849106896
