@@ -4,7 +4,7 @@ public class UnitMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 6f;
     [SerializeField] float avoidanceStrength = 10f;
-    [SerializeField] float obstacleRayLength = 4f;
+    [SerializeField] float obstacleRayLength = 2.8f;
     [SerializeField] LayerMask obstacleMask;
     [SerializeField] float initialCooldown = 100f;
     [SerializeField] float turnSpeed = 720f; // degrees per second
@@ -12,45 +12,35 @@ public class UnitMovement : MonoBehaviour
     float cooldown = 0f;
     Vector3? target;
 
-    private void Awake()
-    {
-        Physics2D.queriesStartInColliders = false;
-    }
+    private void Awake() => Physics2D.queriesStartInColliders = false;
 
-    public void MoveTo(Vector3 position)
-    {
-        target = position;
-    }
+    public void MoveTo(Vector3 position) => target = position;
 
     void Update()
     {
-        if (!target.HasValue) return;
+        if (!target.HasValue) 
+            return;
 
-        Vector3 dir = (target.Value - transform.position).normalized;
-        Vector3 moveVec = dir;
-
-        // Obstacle avoidance
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, obstacleRayLength, obstacleMask);
+        var dir = (target.Value - transform.position).normalized;
+        var moveVec = dir;
+        var hit = Physics2D.Raycast(transform.position, dir, obstacleRayLength, obstacleMask);
         if (hit.collider != null && hit.collider.gameObject != gameObject || cooldown > 0f)
         {
             if (hit.collider != null) 
                 cooldown = initialCooldown;
-            Vector3 right = Vector3.Cross(dir, Vector3.forward); // perpendicular in 2D plane
+            var right = Vector3.Cross(dir, Vector3.forward);
             moveVec = (dir + right.normalized * avoidanceStrength).normalized;
             if (cooldown > 0f) 
                 cooldown--;
         }
 
-        // Rotate toward movement direction (sprite faces up)
         if (moveVec.sqrMagnitude > 0.0001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, moveVec);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, turnSpeed * Time.deltaTime);
         }
 
-        // Translate
         transform.position += moveVec * moveSpeed * Time.deltaTime;
-
         if (Vector3.Distance(transform.position, target.Value) < 0.3f)
             target = null;
     }

@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   avoidanceStrength: 10
-  obstacleRayLength: 4
+  obstacleRayLength: 2.8
   obstacleMask:
     serializedVersion: 2
     m_Bits: 448
